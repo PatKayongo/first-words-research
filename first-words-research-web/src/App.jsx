@@ -15,7 +15,7 @@ class App extends Component {
     this.state = { 
       selectedLanguage: '',
       newCategoryName: '',
-      categories: defaultCategories
+      categories: defaultCategories.slice()
     };
 
     this.handleLanguageChanged = this.handleLanguageChanged.bind(this);
@@ -33,7 +33,7 @@ class App extends Component {
     categories.push(newCategory);
     this.setState({
       categories
-    })
+    });
   }
 
   render() {

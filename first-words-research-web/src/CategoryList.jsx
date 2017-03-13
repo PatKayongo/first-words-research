@@ -29,8 +29,9 @@ export default class CategoryList extends Component {
 		});
 	}
 
-	handleCategoryAdd() {
+	handleCategoryAdd(event) {
 		this.onCategoryAdd({ name: this.state.newCategoryName, language: this.state.language });
+		event.preventDefault();
 	}
 
 	render() {
