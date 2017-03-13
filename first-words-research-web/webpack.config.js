@@ -2,14 +2,27 @@ var path = require('path');
 var webpack = require('webpack');
  
 var APP_DIR = path.resolve(__dirname, 'src');
+var PUBLIC_DIR = path.resolve(__dirname, 'public');
 
 module.exports = {
-  entry: [APP_DIR + '/index.jsx'],
-  output: { path: path.resolve(__dirname, 'public'), filename: 'bundle.js' },
-  devServer: {
-      contentBase: path.resolve(__dirname, 'public'),
-      hot: true
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    APP_DIR + '/index.jsx'
+  ],
+  output: { 
+    filename: 'bundle.js', 
+    path: PUBLIC_DIR + '/dist',
+    publicPath: "http://localhost:8080/dist/" 
   },
+  devServer: {
+      contentBase: PUBLIC_DIR,
+      hot: true,
+      publicPath: "http://localhost:8080/dist/",
+  },
+  context: APP_DIR,
+  devtool: 'inline-source-map',
   module: {
     loaders: [
       {
@@ -47,4 +60,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    // enable HMR globally
+
+    new webpack.NamedModulesPlugin(),
+    // prints more readable module names in the browser console on HMR updates
+  ],
 };
