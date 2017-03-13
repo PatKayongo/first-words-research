@@ -4,9 +4,9 @@ import './App.css';
 import CategoryList from './CategoryList.jsx';
 
 const defaultCategories = [
-        { name: 'Places', language: 'isiXhosa' },
-        { name: 'Food', language: 'isiXhosa' },
-        { name: 'People', language: 'Sesotho' }
+        { name: 'Places', language: 'isiXhosa', words: [] },
+        { name: 'Food', language: 'isiXhosa', words: [] },
+        { name: 'People', language: 'Sesotho', words: [] }
       ];
 
 class App extends Component {
@@ -20,6 +20,7 @@ class App extends Component {
 
     this.handleLanguageChanged = this.handleLanguageChanged.bind(this);
     this.handleCategoryAdd = this.handleCategoryAdd.bind(this);
+    this.handleAddNewWord = this.handleAddNewWord.bind(this);
   }
 
   handleLanguageChanged(event) {
@@ -30,7 +31,26 @@ class App extends Component {
 
   handleCategoryAdd(newCategory) {
     const categories = this.state.categories.slice();
+    if (categories.find(c => c.name === newCategory.name)) {
+      return;
+    }
+
     categories.push(newCategory);
+    this.setState({
+      categories
+    });
+  }
+
+  handleAddNewWord(word, category) {
+    const categories = this.state.categories.slice();
+    const categoryToUpdate = categories.find(c => c.name === category.name && c.language === category.language);
+    categoryToUpdate.words = categoryToUpdate.words || [];
+    if (categoryToUpdate.words.find(w => w === word)) {
+      return;
+    }
+
+    categoryToUpdate.words.push(word);
+
     this.setState({
       categories
     });
@@ -43,14 +63,6 @@ class App extends Component {
 
         <div className="col-xs-12 col-md-8 col-md-offset-2">
           <form>
-            <div className="form-group">
-              <label htmlFor="nameInput">Name</label>
-              <input type="text" className="form-control" id="nameInput" placeholder="Name" />
-            </div>
-            <div className="form-group">
-              <label htmlFor="inputEmail">Email address</label>
-              <input type="email" className="form-control" id="inputEmail" placeholder="Email" />
-            </div>
             <div className="form-group">
               <label htmlFor="languageSelect">Language</label>
               <select className="form-control" value={this.state.value} onChange={this.handleLanguageChanged}>
@@ -70,7 +82,7 @@ class App extends Component {
             </div>
           </form>
         </div>
-        <CategoryList categories={categoriesForLanguage} language={this.state.selectedLanguage} onCategoryAdd={this.handleCategoryAdd} />
+        <CategoryList categories={categoriesForLanguage} language={this.state.selectedLanguage} onCategoryAdd={this.handleCategoryAdd} onAddNewWord={this.handleAddNewWord} />
       </div>
     );
   }

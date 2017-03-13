@@ -13,6 +13,7 @@ export default class CategoryList extends Component {
 		this.handleNewCategoryTextChange = this.handleNewCategoryTextChange.bind(this);
 		this.handleCategoryAdd = this.handleCategoryAdd.bind(this);
 		this.onCategoryAdd = props.onCategoryAdd;
+		this.onAddNewWord = props.onAddNewWord;
 
 	}
 
@@ -44,7 +45,7 @@ export default class CategoryList extends Component {
 					<div className="panel-body">
 					{
 						this.state.categories.map(c => {
-						return (<Category key={c.name} category={c} />)
+						return (<Category key={c.name} category={c} onAddNewWord={this.onAddNewWord} />)
 						})
 					}
 					{
@@ -55,10 +56,11 @@ export default class CategoryList extends Component {
 					<div className="panel-footer">
 					<form className="form-inline">
 						<div className="form-group">
-						<label htmlFor="newCategoryInput">Category Name</label>
-						<input type="text" className="form-control" id="newCategoryInput" placeholder="Category Name" onChange={this.handleNewCategoryTextChange} />
+						<input type="text" className="form-control" id="newCategoryInput" placeholder="New Category" onChange={this.handleNewCategoryTextChange} />
 						</div>
-						<button type="submit" className="btn btn-default" onClick={this.handleCategoryAdd}>Add</button>
+						<button type="submit" className="btn btn-success" onClick={this.handleCategoryAdd} aria-label="Add">
+							<span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						</button>
 					</form>
 					</div>
 				</div>
