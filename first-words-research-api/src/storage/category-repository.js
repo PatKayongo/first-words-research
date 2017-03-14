@@ -17,6 +17,12 @@ function findAllCategories(db, callback) {
 	collection.find().toArray(callback);
 }
 
+function updateCategory(category, db, callback) {
+	var collection = db.collection('categories');
+	var findQuery = { language: category.language, name: category.name };
+	collection.findOneAndReplace(findQuery, category, callback);
+}
+
 module.exports = {
 	insertCategory: function(category, callback) {
 		MongoClient.connect(url, function(error, db) {
@@ -33,6 +39,12 @@ module.exports = {
 	findAllCategories: function(callback) {
 		MongoClient.connect(url, function(error, db) {
 			findAllCategories(db, callback);
+		});
+	},
+
+	updateCategory: function(category, callback) {
+		MongoClient.connect(url, function(error, db) {
+			updateCategory(category, db, callback);
 		});
 	}
 };

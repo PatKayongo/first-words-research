@@ -5,12 +5,22 @@ var chai = require('chai');
 var expect = chai.expect;
 
 describe('Add Category', function() {
-	var insertCategoryStub = sinon.stub(categoryRepository, 'insertCategory');
-	insertCategoryStub.yields();
-	var findCategoryStub = sinon.stub(categoryRepository, 'findCategory');
-	findCategoryStub.yields();
-
+	var insertCategoryStub;
+	var findCategoryStub;
 	var addCategory;
+
+	before(function() {
+		insertCategoryStub = sinon.stub(categoryRepository, 'insertCategory');
+		insertCategoryStub.yields();
+
+		findCategoryStub = sinon.stub(categoryRepository, 'findCategory');
+		findCategoryStub.yields();
+	});
+
+	after(function() {
+		findCategoryStub.restore();
+		insertCategoryStub.restore();
+	});
 
 	beforeEach(function() {
 		insertCategoryStub.reset();

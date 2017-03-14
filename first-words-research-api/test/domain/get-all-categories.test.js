@@ -9,6 +9,10 @@ describe('Get All Categories', function() {
 	findCategoriesStub.yields();
 	var getAllCategories;
 
+	after(function() {
+		findCategoriesStub.restore();
+	});
+
 	beforeEach(function() {
 		getAllCategories = getAllCategoriesFactory(categoryRepository);
 	});
