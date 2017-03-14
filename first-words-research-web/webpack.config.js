@@ -20,6 +20,9 @@ module.exports = {
       contentBase: PUBLIC_DIR,
       hot: true,
       publicPath: "http://localhost:8080/dist/",
+      proxy: {
+        "/api": "http://localhost:3000"
+      }
   },
   context: APP_DIR,
   devtool: 'inline-source-map',
