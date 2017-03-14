@@ -67,17 +67,17 @@ class App extends Component {
               <label htmlFor="languageSelect">Language</label>
               <select className="form-control" value={this.state.value} onChange={this.handleLanguageChanged}>
                 <option></option>
-                <option>isiZulu</option>
-                <option>isiXhosa</option>
-                <option>Afrikaans</option>
-                <option>English</option>
-                <option>Sepedi</option>
-                <option>Setswana</option>
-                <option>Sesotho</option>
-                <option>Xitsonga</option>
-                <option>siSwati</option>
-                <option>Tshivenḓa</option>
-                <option>isiNdebele</option>
+                <option value="zul">isiZulu</option>
+                <option value="xho">isiXhosa</option>
+                <option value="afr">Afrikaans</option>
+                <option value="eng">English</option>
+                <option value="nso">Sepedi</option>
+                <option value="tsn">Setswana</option>
+                <option value="sot">Sesotho</option>
+                <option value="tso">Xitsonga</option>
+                <option value="ssw">siSwati</option>
+                <option value="ven">Tshivenḓa</option>
+                <option value="nbl">isiNdebele</option>
               </select>
             </div>
           </form>
