@@ -28,11 +28,16 @@ export default class Category extends Component {
 
 	handleAddNewWord(event) {
 		event.preventDefault();
-		this.setState({
-			newWord: ''
-		});
+		const newWord = this.state.newWord.trim();
+		if (newWord.length === 0) {
+			return;
+		}
 
-		this.onAddNewWord(this.state.newWord, this.state.category);	
+		this.onAddNewWord(newWord, this.state.category).then(() => {
+			this.setState({
+				newWord: ''
+			});
+		});
 	}
 
 	render() {
@@ -50,7 +55,7 @@ export default class Category extends Component {
 					<div className="panel-footer">
 						<form className="form-inline">
 							<div className="form-group">
-								<input type="text" className="form-control" placeholder="New Word" onChange={this.handleNewWordTextChanged} />
+								<input value={this.state.newWord} type="text" className="form-control" placeholder="New Word" onChange={this.handleNewWordTextChanged} />
 							</div>
 							<button type="submit" className="btn btn-success" onClick={this.handleAddNewWord} aria-label="Add">
 								<span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
