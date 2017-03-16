@@ -6,14 +6,14 @@ import sinon from 'sinon';
 import 'sinon-as-promised';
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
+import categoryBuilder from './builders/category-builder';
 
 chai.use(chaiAsPromised);
 
 describe('Category Component', function() {
 	let wrapper;
 
-	function createCategoryWrapper(category, onAddNewWord = sinon.stub()) {
-		category = category || { name: 'places', language: 'xho', words: [] };
+	function createCategoryWrapper(category = new categoryBuilder().build(), onAddNewWord = sinon.stub()) {
 		return shallow(<Category category={category} onAddNewWord={onAddNewWord} />);
 	}
 
@@ -21,18 +21,18 @@ describe('Category Component', function() {
 	const pressAddButton = wrapper => wrapper.find('button').simulate('click', { preventDefault: sinon.stub() });
 
 	it('should display the category name', () => {
-		const wrapper = createCategoryWrapper({ name: 'places', language: 'nde', words: [] });
+		const wrapper = createCategoryWrapper(new categoryBuilder().withName('places').build());
 		expect(wrapper.containsMatchingElement(<div>places</div>)).to.be.true;
 	});
 
 	it('should render the category words', () => {
-		const wrapper = createCategoryWrapper({ name: 'places', language: 'nde', words: ['khaya', 'kraal'] });
+		const wrapper = createCategoryWrapper(new categoryBuilder().withWords('khaya', 'kraal').build());
 		expect(wrapper.containsMatchingElement(<span>khaya</span>)).to.be.true;
 		expect(wrapper.containsMatchingElement(<span>kraal</span>)).to.be.true;
 	});
 
 	describe('when the add button is pressed', () => {
-		const category = { name: 'places', language: 'nde', words: ['khaya', 'kraal'] };
+		const category = new categoryBuilder().build();
 		const onAddNewWord = sinon.stub().resolves();
 		let wrapper;
 

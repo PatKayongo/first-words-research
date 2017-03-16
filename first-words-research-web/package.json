@@ -38,7 +38,7 @@
     "start": "react-scripts start",
     "start-dev": "webpack-dev-server",
     "build": "react-scripts build",
-    "test": "mocha  --require ./test/setup.js --require ignore-styles --compilers js:babel-core/register  ./test/**/*.js",
+    "test": "mocha  --require ./test/setup.js --require ignore-styles --compilers js:babel-core/register  ./test/**/*.spec.js",
     "eject": "react-scripts eject"
   }
 }
